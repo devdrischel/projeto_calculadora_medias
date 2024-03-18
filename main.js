@@ -5,6 +5,7 @@ const atividades = [];
 const notas = [];
 const spanAprovado = `<span class="resultado aprovado">Aprovado</span>`
 const spanReprovado = `<span class="resultado reprovado">Reprovado</span>`
+const notaMinima = parseFloat(prompt(`Digite a nota mínima:`));
 
 let linhas = ' ';  
 
@@ -30,11 +31,11 @@ function adicionaLinha() {
         let linha = `<tr>`;
         linha += `<td> ${inputNomeAtividade.value}</td>`;
         linha += `<td> ${inputNotaAtividade}</td>`;
-        linha += `<td> ${inputNotaAtividade.value >= 7 ? 'Aprovado' : 'Reprovado'}</td>`
+        linha += `<td> ${inputNotaAtividade.value >= notaMinima ? 'Aprovado' : 'Reprovado'}</td>`
         linha += `</tr>`;
         linhas += linha ;   
     }
-    
+
     inputNomeAtividade.value = ' ';
     inputNotaAtividade.value = ' ';
 }
@@ -45,18 +46,19 @@ function atualizaTabela() {
 }
 
 function atualizaMediaFinal() {
+const mediaFinal = calculaMediaFinal()
 
-document.getElementById('media-final-valor').innerHTML = mediaFinal;
+document.getElementById('media-final-valor').innerHTML = mediaFinal.toFixed(2);
     inputNomeAtividade.value = ' '; 
-document.getElementById('media-final-resultado').innerHTML = mediaFinal >= 7 ? spanAprovado : spanReprovado ;
+document.getElementById('media-final-resultado').innerHTML = mediaFinal >= notaMinima ? spanAprovado : spanReprovado ;
 
 }
 
 function calculaMediaFinal() { 
     let somaDasNotas = 0;
 
-for (let i = 0; i < notas.length, i++ );
+for (let i = 0; i < notas.length, i++) {
 somaDasNotas += notas[i];   
-
-const media = somaDasNotas / notas.length
+}
+return somaDasNotas / notas.length ;
 }
